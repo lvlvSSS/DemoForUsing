@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" monitorInterval="300" name="BDLog">
+  <Appenders>
+  	<Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] [%logger{36}]   %m%n"/>
+    </Console>
+    
+    <RollingFile name="coreLog" filePattern="Logs/$${date:yyyy-MM-dd}/core[%i]-%d{yyyyMMdd}.log">
+      <PatternLayout>
+        <Pattern>%d{HH:mm:ss.SSS} [%t] [%-5level] [%logger{36}]   %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        <SizeBasedTriggeringPolicy size="250 MB"/>
+      </Policies>
+      <DirectWriteRolloverStrategy maxFiles="10"/>
+    </RollingFile>
+    
+  </Appenders>
+  <Loggers>
+  	<Logger name="com.bd.core" level="info">
+  		<AppenderRef ref="coreLog"/>
+  	</Logger>
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>
